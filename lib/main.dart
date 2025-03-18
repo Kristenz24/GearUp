@@ -4,50 +4,33 @@ void main() {
   runApp(GearUpApp());
 }
 
-class GearUpApp extends StatefulWidget {
-  @override
-  _GearUpAppState createState() => _GearUpAppState();
-}
-
-class _GearUpAppState extends State<GearUpApp> {
-  bool _isDarkMode = false;
-
+class GearUpApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: _isDarkMode ? ThemeData.dark() : ThemeData.light(),
-      home: HomePage(
-        toggleTheme: () {
-          setState(() {
-            _isDarkMode = !_isDarkMode;
-          });
-        },
-        isDarkMode: _isDarkMode,
-      ),
+      theme: ThemeData.dark(),
+      home: HomePage(),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  final VoidCallback toggleTheme;
-  final bool isDarkMode;
-
-  const HomePage({required this.toggleTheme, required this.isDarkMode});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('GearUp'),
+        title: Text('Home'),
         actions: [
-          IconButton(
-            icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
-            onPressed: toggleTheme,
-          ),
           IconButton(
             icon: Icon(Icons.favorite_border),
             onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              // Logout functionality to be provided later
+            },
           ),
         ],
       ),
@@ -70,10 +53,14 @@ class HomePage extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Category'),
-          BottomNavigationBarItem(icon: Icon(Icons.add_circle_outline), label: 'Build'),
-          BottomNavigationBarItem(icon: Icon(Icons.library_books), label: 'Browse'),
-          BottomNavigationBarItem(icon: Icon(Icons.desktop_windows), label: 'Pre-Builts'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.grid_view), label: 'Category'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.add_circle_outline), label: 'Build'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.library_books), label: 'Browse'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.desktop_windows), label: 'Pre-Builts'),
         ],
       ),
     );
@@ -90,7 +77,8 @@ class BuildCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('Clicked on $name'); // Replace with navigation or functionality as needed
+        print(
+            'Clicked on $name'); // Replace with navigation or functionality as needed
       },
       child: Card(
         margin: EdgeInsets.symmetric(vertical: 8.0),
